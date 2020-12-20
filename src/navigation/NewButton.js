@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -10,7 +10,8 @@ function NewButton({ onPress }) {
     <TouchableOpacity onPress={onPress}>
       <LinearGradient
         colors={[colors.gradientColor1, colors.gradientColor2]}
-        start={{ x: 0.9, y: 0.8 }}
+        start={{ x: 1, y: 0.1 }}
+        end={{ x: 0.1, y: 1 }}
         style={styles.container}
       >
         <MaterialCommunityIcons name="plus" color={colors.white} size={40} />

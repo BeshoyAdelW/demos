@@ -1,21 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import { Dimensions } from "react-native";
 import Slider from "../components/Slider";
+import AsyncStorage from "@react-native-community/async-storage";
+import { Image } from "react-native";
 
 const width = Dimensions.get("window").width;
 
-export default function Home(props) {
+export default function Home({ route, navigation }) {
+  const [user, setUser] = useState("");
+  const [userImageUri, setUserImageUri] = useState("");
+
+  const getUserData = async () => {
+    try {
+      let value = await AsyncStorage.getItem("login");
+      if (value != null) {
+        let { user, image } = JSON.parse(value);
+        setUser(user);
+        setUserImageUri(image);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const renderUserImage = () => {
+    if (userImageUri !== "") {
+      return <Image style={styles.userImage} source={{ uri: userImageUri }} />;
+    }
+    return (
+      <Image
+        style={styles.userImage}
+        source={require("../assets/Portrait_Placeholder.png")}
+      />
+    );
+  };
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.topContainer}>
-        <AppText style={styles.greeting}>Good Evening Alexis</AppText>
+        <AppText style={styles.greeting}>Good Evening {user}</AppText>
         <AppText style={{ color: colors.secondaryColor2 }}>
           Your target for today is to keep positive mindset and smile to
           everyone you meet.
         </AppText>
+        {renderUserImage()}
       </View>
       <View style={styles.bottomContainer}>
         <AppText style={[styles.question, { marginBottom: 32 }]}>
@@ -76,5 +110,15 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: colors.primary,
     marginBottom: 21,
+  },
+  userImage: {
+    position: "absolute",
+    top: 71,
+    right: 34,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: colors.white,
   },
 });
