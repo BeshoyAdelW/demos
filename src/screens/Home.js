@@ -1,17 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import { Dimensions } from "react-native";
 import Slider from "../components/Slider";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Image } from "react-native";
+import SmallButton from "../components/SmallButton";
+import ListItem from "../components/ListItem";
 
 const width = Dimensions.get("window").width;
 
 export default function Home({ route, navigation }) {
   const [user, setUser] = useState("");
   const [userImageUri, setUserImageUri] = useState("");
+  const [data, setData] = useState([
+    {
+      id: "1",
+      category: "Doctors",
+      title: "Brain Checkout",
+      body: "Have an appointment today",
+      imageSrc: require("../assets/brain.png"),
+      buttonText: "View",
+      buttonColor: colors.error,
+    },
+    {
+      id: "2",
+      category: "Laboratory",
+      title: "Do check up",
+      body: "Don't forget to bring the list with you",
+      imageSrc: require("../assets/flask.png"),
+      buttonText: "Set",
+      buttonColor: colors.tertiary,
+    },
+    {
+      id: "3",
+      category: "Pharmacy",
+      title: "Purchase Prescription",
+      body: "Delivery available",
+      imageSrc: require("../assets/medicine.png"),
+      buttonText: "View",
+      buttonColor: colors.error,
+    },
+  ]);
 
   const getUserData = async () => {
     try {
@@ -41,22 +72,49 @@ export default function Home({ route, navigation }) {
     );
   };
 
+  const renderItem = ({ item }) => (
+    <ListItem
+      imageSrc="../assets/flask.png"
+      style={styles.listItem}
+      item={item}
+    />
+  );
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.topContainer}>
         <AppText style={styles.greeting}>Good Evening {user}</AppText>
-        <AppText style={{ color: colors.secondaryColor2 }}>
+        <AppText style={{ color: colors.secondaryColor2, lineHeight: 22 }}>
           Your target for today is to keep positive mindset and smile to
           everyone you meet.
         </AppText>
+        <View style={{ marginLeft: 0, flexDirection: "row" }}>
+          <SmallButton
+            onPress={() => {
+              console.log("details");
+            }}
+            title="more details"
+            style={{ backgroundColor: colors.secondary, width: 91 }}
+          />
+          <SmallButton
+            onPress={() => {
+              console.log("profile");
+            }}
+            title="view your profile"
+            style={{ backgroundColor: colors.gradientColor1, width: 116 }}
+          />
+        </View>
         {renderUserImage()}
       </View>
       <View style={styles.bottomContainer}>
         <AppText style={[styles.question, { marginBottom: 32 }]}>
           What are you doing today?
         </AppText>
-        <View style={styles.listItem}></View>
-        <View style={styles.listItem}></View>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
         <AppText style={[styles.question, { marginBottom: 16 }]}>
           Visit a Specialist
         </AppText>
@@ -72,8 +130,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: colors.light,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   topContainer: {
     backgroundColor: colors.secondaryColor4,
@@ -86,30 +142,24 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     backgroundColor: colors.light,
-    flex: 0.6,
-    justifyContent: "center",
+    flex: 0.7,
     width,
     padding: 34,
   },
   greeting: {
     fontSize: 25,
-    width: 184,
+    width: 214,
     fontWeight: "bold",
     color: colors.secondary,
     marginBottom: 17,
+    marginTop: 75,
   },
   question: {
     color: colors.secondary,
   },
-  listItem: {
-    height: 80,
-    backgroundColor: colors.primary,
-    marginBottom: 21,
-  },
   slider: {
     height: 80,
     backgroundColor: colors.primary,
-    marginBottom: 21,
   },
   userImage: {
     position: "absolute",

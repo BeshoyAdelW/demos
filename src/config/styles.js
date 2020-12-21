@@ -16,12 +16,12 @@ export default {
     backgroundColor: colors.white,
     paddingLeft: 25,
     marginHorizontal: 50,
-    marginVertical: 5,
+    marginVertical: 6,
     elevation: 6,
   },
   button: {
     height: 55,
-    marginTop: 10,
+    marginTop: 29,
     marginHorizontal: 74,
     elevation: 4,
     borderRadius: 21,
@@ -30,5 +30,9 @@ export default {
     color: colors.white,
     fontSize: 13,
     fontWeight: "bold",
+  },
+  listItem: {
+    height: 80,
+    marginBottom: 0,
   },
 };

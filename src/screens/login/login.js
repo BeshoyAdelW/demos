@@ -25,14 +25,10 @@ export default function LoginScreen({ navigation }) {
     if (user) {
       Alert.alert("Logged in!", `Hi ${user}!`);
       storeUserDate(user, "", "");
-      // navigation.reset(
-      //   {
-      //     index: 0,
-      //     routes: [{ name: "Home" }],
-      //   },
-      //   { user }
-      // );
-      navigation.navigate("Home");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Home" }],
+      });
     }
   };
 
@@ -57,7 +53,10 @@ export default function LoginScreen({ navigation }) {
         const user = await response.json();
         Alert.alert("Logged in!", `Hi ${user.name}!`);
         storeUserDate(user.name, token, user.picture.data.url);
-        navigation.navigate("Home", { user, accessToken: token });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
       } else {
         // type === 'cancel'
       }
@@ -75,7 +74,10 @@ export default function LoginScreen({ navigation }) {
       if (type === "success") {
         Alert.alert("Logged in!", `Hi ${user.name}!`);
         storeUserDate(user.name, accessToken, user.photoUrl);
-        navigation.navigate("Home", { user, accessToken });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
       }
     } catch (error) {
       console.log(error);

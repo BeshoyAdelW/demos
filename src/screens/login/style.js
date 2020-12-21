@@ -23,10 +23,11 @@ export default {
   title: {
     color: colors.primary,
     fontSize: 15,
+    lineHeight: 22,
     fontWeight: "500",
     marginTop: 24,
     marginBottom: 30,
-    marginHorizontal: 110,
+    marginHorizontal: 100,
     textAlign: "center",
   },
   logoImage: {

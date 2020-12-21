@@ -15,4 +15,5 @@ export default {
   error: "#F75010",
   gradientColor1: "#329D9C",
   gradientColor2: "#7BE495",
+  tertiary: "#47CACC",
 };
