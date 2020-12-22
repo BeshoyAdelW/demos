@@ -3,13 +3,20 @@ import { View, Text, TouchableOpacity } from "react-native";
 import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 
-export default function SmallButton({ style, title, ...otherProps }) {
+export default function SmallButton({
+  style,
+  title,
+  textColor = colors.white,
+  ...otherProps
+}) {
   return (
     <View
       style={[
-        defaultStyles.button,
-        style,
-        { marginRight: 21, marginLeft: 0, height: 26, borderRadius: 12 },
+        {
+          marginLeft: 0,
+          height: 26,
+          borderRadius: 12,
+        },
       ]}
     >
       <TouchableOpacity
@@ -29,7 +36,7 @@ export default function SmallButton({ style, title, ...otherProps }) {
         <Text
           style={[
             defaultStyles.buttonText,
-            { fontSize: 10, textTransform: "uppercase" },
+            { fontSize: 10, textTransform: "uppercase", color: textColor },
           ]}
         >
           {title}

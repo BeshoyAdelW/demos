@@ -16,4 +16,5 @@ export default {
   gradientColor1: "#329D9C",
   gradientColor2: "#7BE495",
   tertiary: "#47CACC",
+  tertiary2: "#CDB3D4",
 };

@@ -43,6 +43,22 @@ export default function Home({ route, navigation }) {
       buttonColor: colors.error,
     },
   ]);
+  const [doctors, setDoctors] = useState([
+    {
+      id: "1",
+      speciality: "Physician",
+      name: "Svyatoslav Taushev",
+      imageSrc: require("../assets/Image2.png"),
+      rating: 3,
+    },
+    {
+      id: "2",
+      speciality: "Physician",
+      name: "Albert Taushev",
+      imageSrc: require("../assets/Image.png"),
+      rating: 4,
+    },
+  ]);
 
   const getUserData = async () => {
     try {
@@ -73,11 +89,7 @@ export default function Home({ route, navigation }) {
   };
 
   const renderItem = ({ item }) => (
-    <ListItem
-      imageSrc="../assets/flask.png"
-      style={styles.listItem}
-      item={item}
-    />
+    <ListItem style={styles.listItem} item={item} />
   );
 
   return (
@@ -88,20 +100,29 @@ export default function Home({ route, navigation }) {
           Your target for today is to keep positive mindset and smile to
           everyone you meet.
         </AppText>
-        <View style={{ marginLeft: 0, flexDirection: "row" }}>
+        <View style={{ marginLeft: 0, marginTop: 29, flexDirection: "row" }}>
           <SmallButton
             onPress={() => {
               console.log("details");
             }}
             title="more details"
-            style={{ backgroundColor: colors.secondary, width: 91 }}
+            style={{
+              backgroundColor: colors.secondary,
+              width: 91,
+              marginRight: 21,
+              elevation: 4,
+            }}
           />
           <SmallButton
             onPress={() => {
               console.log("profile");
             }}
             title="view your profile"
-            style={{ backgroundColor: colors.gradientColor1, width: 116 }}
+            style={{
+              backgroundColor: colors.gradientColor1,
+              width: 116,
+              elevation: 4,
+            }}
           />
         </View>
         {renderUserImage()}
@@ -119,7 +140,7 @@ export default function Home({ route, navigation }) {
           Visit a Specialist
         </AppText>
         <View style={styles.slider}>
-          <Slider />
+          <Slider items={doctors} />
         </View>
       </View>
     </View>
@@ -159,7 +180,6 @@ const styles = StyleSheet.create({
   },
   slider: {
     height: 80,
-    backgroundColor: colors.primary,
   },
   userImage: {
     position: "absolute",

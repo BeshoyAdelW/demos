@@ -1,25 +1,19 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import ViewPager from "@react-native-community/viewpager";
+import SliderItem from "./SliderItem";
 
-const Slider = () => {
+export default function Slider({ items }) {
   return (
     <View style={{ flex: 1 }}>
       <ViewPager style={styles.viewPager} initialPage={0}>
-        <View style={styles.page} key="1">
-          <Text>First page</Text>
-          <Text>Swipe </Text>
-        </View>
-        <View style={styles.page} key="2">
-          <Text>Second page</Text>
-        </View>
-        <View style={styles.page} key="3">
-          <Text>Third page</Text>
-        </View>
+        {items.map((item) => (
+          <SliderItem item={item} key={item.id} />
+        ))}
       </ViewPager>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   viewPager: {
@@ -30,5 +24,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default Slider;
